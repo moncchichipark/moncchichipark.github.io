@@ -33,6 +33,7 @@
         </div>
         <div class="nav-actions">
           <a href="#ranking">랭킹</a>
+          <a href="#write">글쓰기</a>
           <a href="#diary">일기</a>
           <a href="#characters">캐릭터</a>
         </div>
@@ -50,7 +51,7 @@
           </p>
           <div class="hero-buttons">
             <a class="primary-btn" href="#ranking">오늘의 랭킹 보기</a>
-            <a class="ghost-btn" href="#diary">새 글 둘러보기</a>
+            <a class="ghost-btn" href="#write">새 글 쓰기</a>
           </div>
         </div>
         <div class="hero-scene" aria-label="귀여운 블로그 매대 일러스트">
@@ -111,59 +112,51 @@
           <p class="eyebrow">real-time shelf ranking</p>
           <h2>오늘의 취향 랭킹</h2>
         </div>
-        <div class="ranking-grid" id="postGrid">
-          <article class="post-card" data-category="food">
-            <span class="rank">01</span>
-            <div class="post-visual cake">
-              <span>cake</span>
-            </div>
-            <div class="post-body">
-              <p class="post-meta">FOOD · 디저트</p>
-              <h3>딸기 생크림 케이크 한 조각의 힘</h3>
-              <p>기분이 말랑해지는 날에는 폭신한 케이크가 가장 빠른 응급 처치.</p>
-              <button class="like-btn" type="button" aria-label="딸기 케이크 글 좋아요">♡ 128</button>
-            </div>
-          </article>
+        <div class="ranking-grid" id="postGrid" aria-live="polite"></div>
+      </section>
 
-          <article class="post-card" data-category="cute character">
-            <span class="rank">02</span>
-            <div class="post-visual mascot">
-              <span>moco</span>
-            </div>
-            <div class="post-body">
-              <p class="post-meta">CHARACTER · 낙서</p>
-              <h3>몬치치 닮은 친구, 모코의 등장</h3>
-              <p>갈색 머리와 동그란 볼을 가진 새 마스코트가 블로그 매대를 지킵니다.</p>
-              <button class="like-btn" type="button" aria-label="모코 글 좋아요">♡ 214</button>
-            </div>
-          </article>
-
-          <article class="post-card" data-category="food daily">
-            <span class="rank">03</span>
-            <div class="post-visual pasta">
-              <span>pasta</span>
-            </div>
-            <div class="post-body">
-              <p class="post-meta">FOOD · 주말</p>
-              <h3>크림 파스타와 토요일의 느린 속도</h3>
-              <p>포크를 돌리는 동안 생각도 천천히 풀리는 점심 기록.</p>
-              <button class="like-btn" type="button" aria-label="파스타 글 좋아요">♡ 96</button>
-            </div>
-          </article>
-
-          <article class="post-card" data-category="cute daily">
-            <span class="rank">04</span>
-            <div class="post-visual sticker">
-              <span>stickers</span>
-            </div>
-            <div class="post-body">
-              <p class="post-meta">CUTE · 문구</p>
-              <h3>책상 위 작은 스티커 매대</h3>
-              <p>쓸모는 작아도 보는 순간 하루가 환해지는 종이 조각들.</p>
-              <button class="like-btn" type="button" aria-label="스티커 글 좋아요">♡ 151</button>
-            </div>
-          </article>
+      <section class="write-section" id="write">
+        <div class="section-heading">
+          <p class="eyebrow">post counter</p>
+          <h2>새 글 진열하기</h2>
         </div>
+        <form class="write-panel" id="postForm">
+          <label>
+            제목
+            <input id="postTitle" name="title" type="text" placeholder="예: 새로 산 곰돌이 키링" required />
+          </label>
+          <label>
+            카테고리
+            <select id="postCategory" name="category">
+              <option value="cute">귀여운 것</option>
+              <option value="food">먹은 것</option>
+              <option value="character">캐릭터</option>
+              <option value="daily">일상</option>
+            </select>
+          </label>
+          <label>
+            태그
+            <input id="postTag" name="tag" type="text" placeholder="예: 키링 · 소품" />
+          </label>
+          <label>
+            표지 느낌
+            <select id="postVisual" name="visual">
+              <option value="sticker">스티커</option>
+              <option value="cake">케이크</option>
+              <option value="mascot">마스코트</option>
+              <option value="pasta">파스타</option>
+            </select>
+          </label>
+          <label class="wide-field">
+            한 줄 기록
+            <textarea id="postExcerpt" name="excerpt" rows="4" placeholder="오늘 발견한 귀여움이나 먹은 것을 짧게 적어주세요." required></textarea>
+          </label>
+          <div class="write-actions">
+            <button class="primary-btn" type="submit">진열하기</button>
+            <button class="ghost-btn" id="clearLocalPosts" type="button">임시 글 비우기</button>
+          </div>
+          <output class="write-output" id="writeOutput"></output>
+        </form>
       </section>
 
       <section class="diary-section" id="diary">

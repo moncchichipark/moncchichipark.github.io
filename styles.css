@@ -348,6 +348,7 @@ h1 {
 }
 
 .ranking-section,
+.write-section,
 .diary-section,
 .characters-section {
   margin: 0 auto;
@@ -375,6 +376,7 @@ h1 {
 }
 
 .post-card,
+.write-panel,
 .character-card,
 .memo-panel {
   background: white;
@@ -511,6 +513,81 @@ h1 {
   background: #ffe0e6;
   border-color: var(--pink);
   color: #b42345;
+}
+
+.empty-state {
+  background: #f8f5ee;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  grid-column: 1 / -1;
+  padding: 1.2rem;
+}
+
+.write-panel {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 1.2rem;
+}
+
+.write-panel label {
+  color: var(--olive-dark);
+  display: grid;
+  font-weight: 900;
+  gap: 0.45rem;
+}
+
+.write-panel input,
+.write-panel select,
+.write-panel textarea {
+  background: #f8f5ee;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  min-height: 44px;
+  outline: 0;
+  padding: 0.72rem 0.8rem;
+  width: 100%;
+}
+
+.write-panel textarea {
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.write-panel input:focus,
+.write-panel select:focus,
+.write-panel textarea:focus {
+  border-color: var(--olive);
+  box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.18);
+}
+
+.wide-field,
+.write-actions,
+.write-output {
+  grid-column: 1 / -1;
+}
+
+.write-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.write-actions button {
+  border: 0;
+  cursor: pointer;
+}
+
+.write-actions .ghost-btn {
+  border: 1px solid var(--line);
+}
+
+.write-output {
+  color: var(--muted);
+  line-height: 1.6;
+  min-height: 1.6em;
 }
 
 .diary-layout {
@@ -652,6 +729,7 @@ h1 {
   }
 
   .ranking-grid,
+  .write-panel,
   .diary-layout,
   .character-row,
   .featured-post {
