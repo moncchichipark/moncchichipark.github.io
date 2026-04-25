@@ -234,6 +234,40 @@ h1 {
   min-height: 560px;
   padding: 1.2rem;
   position: relative;
+  touch-action: pan-y;
+  transition: background 220ms ease, transform 220ms ease;
+  user-select: none;
+}
+
+.hero-scene.is-dragging {
+  cursor: grabbing;
+  transform: rotate(-1deg) scale(0.99);
+}
+
+.hero-scene[data-mood="food"] {
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.55) 50%, transparent 51%),
+    linear-gradient(180deg, #fff4d1 0%, #ffd6c2 58%, #fffdf8 100%);
+}
+
+.hero-scene[data-mood="character"] {
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.55) 50%, transparent 51%),
+    linear-gradient(180deg, #e4f7ff 0%, #eadcff 58%, #fffdf8 100%);
+}
+
+.drag-hint {
+  background: var(--ink);
+  border-radius: 999px;
+  color: white;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.32rem 0.58rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 3;
 }
 
 .shelf {
@@ -256,6 +290,15 @@ h1 {
   min-height: 134px;
   padding: 0.8rem;
   position: relative;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.hero-scene[data-mood="food"] .mini-item {
+  transform: translateY(4px);
+}
+
+.hero-scene[data-mood="character"] .mini-item {
+  transform: rotate(1.5deg);
 }
 
 .mini-item.pink {
@@ -309,6 +352,15 @@ h1 {
   top: 50%;
   transform: translate(-50%, -50%) rotate(-2deg);
   width: min(260px, 52%);
+  transition: transform 220ms ease;
+}
+
+.hero-scene[data-mood="food"] .mascot-card {
+  transform: translate(-50%, -50%) rotate(2deg) scale(0.96);
+}
+
+.hero-scene[data-mood="character"] .mascot-card {
+  transform: translate(-50%, -50%) rotate(-5deg) scale(1.03);
 }
 
 .mascot-card svg {
@@ -348,7 +400,6 @@ h1 {
 }
 
 .ranking-section,
-.write-section,
 .diary-section,
 .characters-section {
   margin: 0 auto;
@@ -376,7 +427,6 @@ h1 {
 }
 
 .post-card,
-.write-panel,
 .character-card,
 .memo-panel {
   background: white;
@@ -546,77 +596,6 @@ h1 {
   padding: 1.2rem;
 }
 
-.write-panel {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  padding: 1.2rem;
-}
-
-.write-panel label {
-  color: var(--olive-dark);
-  display: grid;
-  font-weight: 900;
-  gap: 0.45rem;
-}
-
-.write-panel input,
-.write-panel select,
-.write-panel textarea {
-  background: #f8f5ee;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  min-height: 44px;
-  outline: 0;
-  padding: 0.72rem 0.8rem;
-  width: 100%;
-}
-
-.write-panel input[type="file"] {
-  align-items: center;
-  display: flex;
-}
-
-.write-panel textarea {
-  line-height: 1.6;
-  resize: vertical;
-}
-
-.write-panel input:focus,
-.write-panel select:focus,
-.write-panel textarea:focus {
-  border-color: var(--olive);
-  box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.18);
-}
-
-.wide-field,
-.write-actions,
-.write-output {
-  grid-column: 1 / -1;
-}
-
-.write-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.write-actions button {
-  border: 0;
-  cursor: pointer;
-}
-
-.write-actions .ghost-btn {
-  border: 1px solid var(--line);
-}
-
-.write-output {
-  color: var(--muted);
-  line-height: 1.6;
-  min-height: 1.6em;
-}
-
 .diary-layout {
   display: grid;
   gap: 1rem;
@@ -756,11 +735,23 @@ h1 {
   }
 
   .ranking-grid,
-  .write-panel,
   .diary-layout,
   .character-row,
   .featured-post {
     grid-template-columns: 1fr;
+  }
+
+  .ranking-grid {
+    display: flex;
+    margin-inline: -1.25rem;
+    overflow-x: auto;
+    padding: 0 1.25rem 0.2rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .post-card {
+    flex: 0 0 min(84vw, 360px);
+    scroll-snap-align: start;
   }
 
   .post-visual {

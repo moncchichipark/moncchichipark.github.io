@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nunito:wght@700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260425-2" />
+    <link rel="stylesheet" href="styles.css?v=20260425-3" />
   </head>
   <body>
     <header class="site-header">
@@ -33,7 +33,6 @@
         </div>
         <div class="nav-actions">
           <a href="#ranking">랭킹</a>
-          <a href="#write">글쓰기</a>
           <a href="#diary">일기</a>
           <a href="#characters">캐릭터</a>
         </div>
@@ -51,10 +50,11 @@
           </p>
           <div class="hero-buttons">
             <a class="primary-btn" href="#ranking">오늘의 랭킹 보기</a>
-            <a class="ghost-btn" href="#write">새 글 쓰기</a>
+            <a class="ghost-btn" href="#diary">새 글 둘러보기</a>
           </div>
         </div>
-        <div class="hero-scene" aria-label="귀여운 블로그 매대 일러스트">
+        <div class="hero-scene" data-mood="cute" aria-label="드래그하면 분위기가 바뀌는 귀여운 블로그 매대 일러스트">
+          <div class="drag-hint">drag shelf</div>
           <div class="shelf shelf-top">
             <article class="mini-item pink">
               <span class="badge">NEW</span>
@@ -115,54 +115,6 @@
         <div class="ranking-grid" id="postGrid" aria-live="polite"></div>
       </section>
 
-      <section class="write-section" id="write">
-        <div class="section-heading">
-          <p class="eyebrow">post counter</p>
-          <h2>새 글 진열하기</h2>
-        </div>
-        <form class="write-panel" id="postForm">
-          <label>
-            제목
-            <input id="postTitle" name="title" type="text" placeholder="예: 새로 산 곰돌이 키링" required />
-          </label>
-          <label>
-            카테고리
-            <select id="postCategory" name="category">
-              <option value="cute">귀여운 것</option>
-              <option value="food">먹은 것</option>
-              <option value="character">캐릭터</option>
-              <option value="daily">일상</option>
-            </select>
-          </label>
-          <label>
-            태그
-            <input id="postTag" name="tag" type="text" placeholder="예: 키링 · 소품" />
-          </label>
-          <label>
-            표지 느낌
-            <select id="postVisual" name="visual">
-              <option value="sticker">스티커</option>
-              <option value="cake">케이크</option>
-              <option value="mascot">마스코트</option>
-              <option value="pasta">파스타</option>
-            </select>
-          </label>
-          <label class="wide-field">
-            사진
-            <input id="postImage" name="imageFile" type="file" accept="image/*" />
-          </label>
-          <label class="wide-field">
-            한 줄 기록
-            <textarea id="postExcerpt" name="excerpt" rows="4" placeholder="오늘 발견한 귀여움이나 먹은 것을 짧게 적어주세요." required></textarea>
-          </label>
-          <div class="write-actions">
-            <button class="primary-btn" type="submit">진열하기</button>
-            <button class="ghost-btn" id="clearLocalPosts" type="button">임시 글 비우기</button>
-          </div>
-          <output class="write-output" id="writeOutput"></output>
-        </form>
-      </section>
-
       <section class="diary-section" id="diary">
         <div class="section-heading">
           <p class="eyebrow">fresh arrivals</p>
@@ -221,6 +173,6 @@
       <span>귀엽고 맛있는 일상을 천천히 진열하는 곳</span>
     </footer>
 
-    <script src="script.js?v=20260425-2"></script>
+    <script src="script.js?v=20260425-3"></script>
   </body>
 </html>
