@@ -14,6 +14,11 @@
   --brown: #8a5738;
   --shadow: 0 18px 50px rgba(68, 55, 35, 0.12);
   --scroll: 0;
+  --warm-a: 255, 244, 209;
+  --warm-b: 255, 215, 176;
+  --warm-c: 255, 232, 202;
+  --mascot-bob: 0px;
+  --mascot-tilt: 0deg;
 }
 
 * {
@@ -27,27 +32,60 @@ html {
 body {
   margin: 0;
   background:
+    radial-gradient(
+      circle at calc(22% + var(--scroll) * 46%) calc(8% + var(--scroll) * 28%),
+      rgba(var(--warm-b), 0.52),
+      transparent 32vw
+    ),
+    radial-gradient(
+      circle at calc(88% - var(--scroll) * 34%) calc(36% + var(--scroll) * 22%),
+      rgba(255, 135, 153, 0.2),
+      transparent 26vw
+    ),
     linear-gradient(
       180deg,
-      rgba(217, 240, 121, calc(0.12 + var(--scroll) * 0.08)),
-      rgba(255, 215, 176, calc(0.1 + var(--scroll) * 0.05)) 46%,
+      rgba(var(--warm-a), 0.95),
+      rgba(var(--warm-b), 0.62) 42%,
+      rgba(var(--warm-c), 0.78) 78%,
       var(--paper) 100%
     );
+  background-attachment: fixed;
   color: var(--ink);
   font-family: "Gowun Dodum", system-ui, sans-serif;
   transition: background 300ms ease;
 }
 
+body[data-scroll-tone="cute"] {
+  --warm-a: 255, 247, 220;
+  --warm-b: 255, 215, 176;
+  --warm-c: 255, 238, 224;
+}
+
+body[data-scroll-tone="fresh"] {
+  --warm-a: 244, 255, 214;
+  --warm-b: 255, 226, 160;
+  --warm-c: 255, 241, 210;
+}
+
 body[data-scroll-tone="food"] {
   --fresh: #ffe38a;
+  --warm-a: 255, 236, 178;
+  --warm-b: 255, 196, 161;
+  --warm-c: 255, 242, 207;
 }
 
 body[data-scroll-tone="character"] {
   --fresh: #b9dfff;
+  --warm-a: 255, 228, 205;
+  --warm-b: 255, 174, 190;
+  --warm-c: 236, 231, 255;
 }
 
 body[data-scroll-tone="ranking"] {
   --fresh: #ffd7b0;
+  --warm-a: 255, 232, 202;
+  --warm-b: 255, 209, 118;
+  --warm-c: 255, 239, 212;
 }
 
 a {
@@ -74,29 +112,33 @@ input {
 
 .scroll-mascot {
   align-items: center;
-  background: var(--peach);
+  background:
+    radial-gradient(circle at 50% 58%, var(--peach) 0 42%, transparent 43%),
+    radial-gradient(circle at 50% 50%, var(--brown) 0 64%, transparent 65%),
+    var(--brown);
   border: 2px solid var(--ink);
   border-radius: 50%;
-  bottom: 1.1rem;
-  box-shadow: 5px 5px 0 var(--ink);
+  bottom: 2rem;
+  box-shadow: 7px 7px 0 var(--ink), 0 22px 52px rgba(68, 55, 35, 0.2);
   display: flex;
-  height: 58px;
+  height: 86px;
   justify-content: center;
   position: fixed;
-  right: 1.1rem;
-  transform: translateY(calc(var(--scroll) * -18px)) rotate(calc((var(--scroll) - 0.5) * 10deg));
-  width: 58px;
-  z-index: 30;
+  right: 2rem;
+  transform: translateY(var(--mascot-bob)) rotate(var(--mascot-tilt));
+  transition: transform 120ms ease-out, background 260ms ease;
+  width: 86px;
+  z-index: 120;
 }
 
 .mascot-ear {
   background: var(--brown);
   border: 2px solid var(--ink);
   border-radius: 50%;
-  height: 22px;
+  height: 31px;
   position: absolute;
-  top: -5px;
-  width: 22px;
+  top: -7px;
+  width: 31px;
   z-index: -1;
 }
 
@@ -109,8 +151,26 @@ input {
 }
 
 .mascot-face {
-  font-size: 1.28rem;
+  background: rgba(255, 216, 181, 0.96);
+  border-radius: 999px;
+  font-size: 1.42rem;
   font-weight: 900;
+  padding: 0.42rem 0.6rem;
+}
+
+.scroll-mascot::after {
+  background: white;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  content: "moco";
+  font-family: "Nunito", sans-serif;
+  font-size: 0.64rem;
+  font-weight: 900;
+  padding: 0.12rem 0.38rem;
+  position: absolute;
+  right: -0.35rem;
+  top: -0.1rem;
+  transform: rotate(8deg);
 }
 
 .site-header {
@@ -893,6 +953,7 @@ h1 {
 
   .scroll-mascot {
     height: 48px;
+    right: 1rem;
     width: 48px;
   }
 

@@ -4,6 +4,8 @@ const searchInput = document.querySelector("#searchInput");
 const heroScene = document.querySelector(".hero-scene");
 const revealSections = document.querySelectorAll(".reveal-on-scroll");
 const scrollTones = ["cute", "fresh", "ranking", "food", "character"];
+const mascotFaces = ["•ᴗ•", "◕ᴗ◕", "˘ڡ˘", "♡ᴗ♡", "•ﻌ•"];
+const mascotFace = document.querySelector(".mascot-face");
 
 let activeFilter = "all";
 let publishedPosts = [];
@@ -15,9 +17,12 @@ function updateScrollState() {
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
   const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
   document.documentElement.style.setProperty("--scroll", progress.toFixed(3));
+  document.documentElement.style.setProperty("--mascot-bob", `${Math.sin(progress * Math.PI * 8) * 18 - progress * 26}px`);
+  document.documentElement.style.setProperty("--mascot-tilt", `${Math.sin(progress * Math.PI * 6) * 14}deg`);
 
   const toneIndex = Math.min(scrollTones.length - 1, Math.floor(progress * scrollTones.length));
   document.body.dataset.scrollTone = scrollTones[toneIndex];
+  mascotFace.textContent = mascotFaces[toneIndex] || mascotFaces[0];
 }
 
 function normalize(text) {
