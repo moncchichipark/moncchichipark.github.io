@@ -34,7 +34,12 @@ function readLocalPosts() {
 }
 
 function saveLocalPosts(posts) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function allPosts() {
@@ -132,7 +137,7 @@ function handleLike(event) {
   button.textContent = `${liked ? "♥" : "♡"} ${liked ? number + 1 : number - 1}`;
 }
 
-function readImageFile(file) {
+function resizeImageFile(file) {
   return new Promise((resolve, reject) => {
     if (!file) {
       resolve("");
@@ -140,7 +145,24 @@ function readImageFile(file) {
     }
 
     const reader = new FileReader();
-    reader.addEventListener("load", () => resolve(reader.result));
+    reader.addEventListener("load", () => {
+      const image = new Image();
+
+      image.addEventListener("load", () => {
+        const maxSize = 1200;
+        const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(image.width * scale);
+        canvas.height = Math.round(image.height * scale);
+
+        const context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL("image/jpeg", 0.82));
+      });
+
+      image.addEventListener("error", () => resolve(reader.result));
+      image.src = reader.result;
+    });
     reader.addEventListener("error", () => reject(reader.error));
     reader.readAsDataURL(file);
   });
@@ -162,7 +184,16 @@ postForm.addEventListener("submit", async (event) => {
 
   const formData = new FormData(postForm);
   const imageFile = formData.get("imageFile");
-  const image = imageFile?.size ? await readImageFile(imageFile) : "";
+  writeOutput.textContent = imageFile?.size ? "사진을 작게 줄여 진열하는 중입니다." : "";
+
+  let image = "";
+
+  try {
+    image = imageFile?.size ? await resizeImageFile(imageFile) : "";
+  } catch {
+    writeOutput.textContent = "사진을 읽지 못했지만 글은 진열합니다.";
+  }
+
   const post = {
     title: formData.get("title").trim(),
     category: formData.get("category"),
@@ -175,16 +206,18 @@ postForm.addEventListener("submit", async (event) => {
   };
 
   localPosts = [post, ...localPosts];
-  saveLocalPosts(localPosts);
+  const didSave = saveLocalPosts(localPosts);
   postForm.reset();
-  writeOutput.textContent = `"${post.title}" 글을 ${categoryLabel(post.category)} 매대에 올렸습니다.`;
+  writeOutput.textContent = didSave
+    ? `"${post.title}" 글을 ${categoryLabel(post.category)} 매대에 올렸습니다.`
+    : `"${post.title}" 글을 올렸습니다. 사진이 커서 새로고침 후에는 사라질 수 있습니다.`;
   renderPosts();
   document.querySelector("#ranking").scrollIntoView({ behavior: "smooth" });
 });
 
 clearLocalPostsButton.addEventListener("click", () => {
   localPosts = [];
-  saveLocalPosts(localPosts);
+  localStorage.removeItem(STORAGE_KEY);
   writeOutput.textContent = "브라우저에 저장된 임시 글을 비웠습니다.";
   renderPosts();
 });
