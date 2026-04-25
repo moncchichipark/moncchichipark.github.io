@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moncchichi Park</title>
+    <meta
+      name="description"
+      content="귀여운 것, 맛있는 것, 작은 캐릭터들을 모으는 Moncchichi Park 개인 블로그"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nunito:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="promo-bar">오늘의 귀여움 2+1: 디저트 사진, 캐릭터 낙서, 소소한 일상</div>
+      <nav class="nav-shell" aria-label="주요 메뉴">
+        <a class="brand" href="#top" aria-label="Moncchichi Park 홈">
+          <span class="brand-mark">m</span>
+          <span>
+            <strong>Moncchichi Park</strong>
+            <small>cute shelf blog</small>
+          </span>
+        </a>
+        <div class="search-box" role="search">
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="귀여운 것 검색" />
+        </div>
+        <div class="nav-actions">
+          <a href="#ranking">랭킹</a>
+          <a href="#diary">일기</a>
+          <a href="#characters">캐릭터</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">personal blog curated like a cute store</p>
+          <h1>귀여운 것만 골라 담은 나의 작은 올리브영</h1>
+          <p>
+            먹은 것, 본 것, 좋아하는 캐릭터, 그리고 몬치치처럼 포근한 잡다한 취향을
+            매대 위에 가지런히 올려두는 블로그입니다.
+          </p>
+          <div class="hero-buttons">
+            <a class="primary-btn" href="#ranking">오늘의 랭킹 보기</a>
+            <a class="ghost-btn" href="#diary">새 글 둘러보기</a>
+          </div>
+        </div>
+        <div class="hero-scene" aria-label="귀여운 블로그 매대 일러스트">
+          <div class="shelf shelf-top">
+            <article class="mini-item pink">
+              <span class="badge">NEW</span>
+              <span class="item-face">•ᴗ•</span>
+              <strong>딸기 케이크</strong>
+            </article>
+            <article class="mini-item green">
+              <span class="badge">BEST</span>
+              <span class="item-face">◕‿◕</span>
+              <strong>말차 라떼</strong>
+            </article>
+          </div>
+          <div class="mascot-card">
+            <svg viewBox="0 0 220 240" role="img" aria-label="몬치치 감성의 귀여운 마스코트">
+              <circle cx="110" cy="115" r="82" fill="#9b633e" />
+              <circle cx="110" cy="132" r="62" fill="#ffd8b5" />
+              <circle cx="63" cy="94" r="28" fill="#8b5637" />
+              <circle cx="157" cy="94" r="28" fill="#8b5637" />
+              <circle cx="84" cy="124" r="8" fill="#2f251f" />
+              <circle cx="136" cy="124" r="8" fill="#2f251f" />
+              <ellipse cx="110" cy="144" rx="13" ry="9" fill="#7c4630" />
+              <path d="M92 162 Q110 176 128 162" fill="none" stroke="#7c4630" stroke-width="6" stroke-linecap="round" />
+              <path d="M58 72 Q110 18 162 72" fill="none" stroke="#6f422b" stroke-width="18" stroke-linecap="round" />
+              <circle cx="77" cy="111" r="7" fill="#ff8e9d" opacity=".75" />
+              <circle cx="143" cy="111" r="7" fill="#ff8e9d" opacity=".75" />
+              <path d="M83 200 Q110 224 137 200" fill="#ffcf5f" />
+            </svg>
+            <span>오늘의 점장</span>
+          </div>
+          <div class="shelf shelf-bottom">
+            <article class="mini-item yellow">
+              <span class="badge">YUM</span>
+              <span class="item-face">˘ڡ˘</span>
+              <strong>크림 파스타</strong>
+            </article>
+            <article class="mini-item blue">
+              <span class="badge">PICK</span>
+              <span class="item-face">♡</span>
+              <strong>문구 스티커</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="category-strip" aria-label="카테고리">
+        <button class="chip active" data-filter="all">전체</button>
+        <button class="chip" data-filter="cute">귀여운 것</button>
+        <button class="chip" data-filter="food">먹은 것</button>
+        <button class="chip" data-filter="character">캐릭터</button>
+        <button class="chip" data-filter="daily">일상</button>
+      </section>
+
+      <section class="ranking-section" id="ranking">
+        <div class="section-heading">
+          <p class="eyebrow">real-time shelf ranking</p>
+          <h2>오늘의 취향 랭킹</h2>
+        </div>
+        <div class="ranking-grid" id="postGrid">
+          <article class="post-card" data-category="food">
+            <span class="rank">01</span>
+            <div class="post-visual cake">
+              <span>cake</span>
+            </div>
+            <div class="post-body">
+              <p class="post-meta">FOOD · 디저트</p>
+              <h3>딸기 생크림 케이크 한 조각의 힘</h3>
+              <p>기분이 말랑해지는 날에는 폭신한 케이크가 가장 빠른 응급 처치.</p>
+              <button class="like-btn" type="button" aria-label="딸기 케이크 글 좋아요">♡ 128</button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="cute character">
+            <span class="rank">02</span>
+            <div class="post-visual mascot">
+              <span>moco</span>
+            </div>
+            <div class="post-body">
+              <p class="post-meta">CHARACTER · 낙서</p>
+              <h3>몬치치 닮은 친구, 모코의 등장</h3>
+              <p>갈색 머리와 동그란 볼을 가진 새 마스코트가 블로그 매대를 지킵니다.</p>
+              <button class="like-btn" type="button" aria-label="모코 글 좋아요">♡ 214</button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="food daily">
+            <span class="rank">03</span>
+            <div class="post-visual pasta">
+              <span>pasta</span>
+            </div>
+            <div class="post-body">
+              <p class="post-meta">FOOD · 주말</p>
+              <h3>크림 파스타와 토요일의 느린 속도</h3>
+              <p>포크를 돌리는 동안 생각도 천천히 풀리는 점심 기록.</p>
+              <button class="like-btn" type="button" aria-label="파스타 글 좋아요">♡ 96</button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="cute daily">
+            <span class="rank">04</span>
+            <div class="post-visual sticker">
+              <span>stickers</span>
+            </div>
+            <div class="post-body">
+              <p class="post-meta">CUTE · 문구</p>
+              <h3>책상 위 작은 스티커 매대</h3>
+              <p>쓸모는 작아도 보는 순간 하루가 환해지는 종이 조각들.</p>
+              <button class="like-btn" type="button" aria-label="스티커 글 좋아요">♡ 151</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="diary-section" id="diary">
+        <div class="section-heading">
+          <p class="eyebrow">fresh arrivals</p>
+          <h2>방금 진열한 글</h2>
+        </div>
+        <div class="diary-layout">
+          <article class="featured-post">
+            <div>
+              <p class="post-meta">TODAY · 산책</p>
+              <h3>귀여운 간판만 보면 발걸음이 자동으로 멈춘다</h3>
+              <p>
+                작은 카페 창문에 붙은 손그림, 빵집 앞 미니 메뉴판, 편의점 신상 과자까지.
+                오늘도 사소한 귀여움을 수집했습니다.
+              </p>
+            </div>
+            <a href="#characters">캐릭터 선반 보기</a>
+          </article>
+          <aside class="memo-panel" aria-label="블로그 메모">
+            <h3>이번 주 수집 목록</h3>
+            <ul>
+              <li>신상 젤리 맛 비교하기</li>
+              <li>모코 표정 세트 그리기</li>
+              <li>노란 접시 브런치 사진 올리기</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="characters-section" id="characters">
+        <div class="section-heading">
+          <p class="eyebrow">character shelf</p>
+          <h2>잡다한 친구들</h2>
+        </div>
+        <div class="character-row">
+          <article class="character-card">
+            <span class="character-face brown">•ᴗ•</span>
+            <h3>모코</h3>
+            <p>몽글한 점장. 케이크를 보면 눈이 반짝입니다.</p>
+          </article>
+          <article class="character-card">
+            <span class="character-face lemon">˘ڡ˘</span>
+            <h3>뿌딩</h3>
+            <p>맛집 지도 담당. 메뉴판 읽는 속도가 빠릅니다.</p>
+          </article>
+          <article class="character-card">
+            <span class="character-face mint">◕‿◕</span>
+            <h3>초코칩</h3>
+            <p>귀여운 물건을 발견하면 바로 장바구니에 담습니다.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <strong>Moncchichi Park</strong>
+      <span>귀엽고 맛있는 일상을 천천히 진열하는 곳</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
