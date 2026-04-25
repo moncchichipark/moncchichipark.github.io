@@ -182,37 +182,41 @@ searchInput.addEventListener("input", applyFilters);
 postForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const formData = new FormData(postForm);
-  const imageFile = formData.get("imageFile");
-  writeOutput.textContent = imageFile?.size ? "사진을 작게 줄여 진열하는 중입니다." : "";
-
-  let image = "";
-
   try {
-    image = imageFile?.size ? await resizeImageFile(imageFile) : "";
-  } catch {
-    writeOutput.textContent = "사진을 읽지 못했지만 글은 진열합니다.";
+    const formData = new FormData(postForm);
+    const imageFile = formData.get("imageFile");
+    writeOutput.textContent = imageFile?.size ? "사진을 작게 줄여 진열하는 중입니다." : "";
+
+    let image = "";
+
+    try {
+      image = imageFile?.size ? await resizeImageFile(imageFile) : "";
+    } catch {
+      writeOutput.textContent = "사진을 읽지 못했지만 글은 진열합니다.";
+    }
+
+    const post = {
+      title: formData.get("title").trim(),
+      category: formData.get("category"),
+      tag: formData.get("tag").trim() || "기록",
+      excerpt: formData.get("excerpt").trim(),
+      visual: formData.get("visual"),
+      image,
+      imageAlt: formData.get("title").trim(),
+      likes: 0,
+    };
+
+    localPosts = [post, ...localPosts];
+    const didSave = saveLocalPosts(localPosts);
+    postForm.reset();
+    writeOutput.textContent = didSave
+      ? `"${post.title}" 글을 ${categoryLabel(post.category)} 매대에 올렸습니다.`
+      : `"${post.title}" 글을 올렸습니다. 사진이 커서 새로고침 후에는 사라질 수 있습니다.`;
+    renderPosts();
+    document.querySelector("#ranking").scrollIntoView({ behavior: "smooth" });
+  } catch (error) {
+    writeOutput.textContent = `글을 올리지 못했습니다: ${error.message}`;
   }
-
-  const post = {
-    title: formData.get("title").trim(),
-    category: formData.get("category"),
-    tag: formData.get("tag").trim() || "기록",
-    excerpt: formData.get("excerpt").trim(),
-    visual: formData.get("visual"),
-    image,
-    imageAlt: formData.get("title").trim(),
-    likes: 0,
-  };
-
-  localPosts = [post, ...localPosts];
-  const didSave = saveLocalPosts(localPosts);
-  postForm.reset();
-  writeOutput.textContent = didSave
-    ? `"${post.title}" 글을 ${categoryLabel(post.category)} 매대에 올렸습니다.`
-    : `"${post.title}" 글을 올렸습니다. 사진이 커서 새로고침 후에는 사라질 수 있습니다.`;
-  renderPosts();
-  document.querySelector("#ranking").scrollIntoView({ behavior: "smooth" });
 });
 
 clearLocalPostsButton.addEventListener("click", () => {
