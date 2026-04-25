@@ -54,7 +54,7 @@ function createPostCard(post, index) {
 
   card.innerHTML = `
     <span class="rank">${rank}</span>
-    <div class="post-visual ${safeVisual}">
+    <div class="post-visual ${safeVisual}${post.image ? " has-image" : ""}">
       <span>${safeVisual}</span>
     </div>
     <div class="post-body">
@@ -64,6 +64,14 @@ function createPostCard(post, index) {
       <button class="like-btn" type="button" aria-label="글 좋아요">♡ ${likes}</button>
     </div>
   `;
+
+  if (post.image) {
+    const image = document.createElement("img");
+    image.src = post.image;
+    image.alt = post.imageAlt || post.title;
+    image.loading = "lazy";
+    card.querySelector(".post-visual").prepend(image);
+  }
 
   card.querySelector("h3").textContent = post.title;
   card.querySelector(".post-body p:not(.post-meta)").textContent = post.excerpt;
@@ -124,6 +132,20 @@ function handleLike(event) {
   button.textContent = `${liked ? "♥" : "♡"} ${liked ? number + 1 : number - 1}`;
 }
 
+function readImageFile(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      resolve("");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(reader.result));
+    reader.addEventListener("error", () => reject(reader.error));
+    reader.readAsDataURL(file);
+  });
+}
+
 chips.forEach((chip) => {
   chip.addEventListener("click", () => {
     chips.forEach((item) => item.classList.remove("active"));
@@ -135,16 +157,20 @@ chips.forEach((chip) => {
 
 searchInput.addEventListener("input", applyFilters);
 
-postForm.addEventListener("submit", (event) => {
+postForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const formData = new FormData(postForm);
+  const imageFile = formData.get("imageFile");
+  const image = imageFile?.size ? await readImageFile(imageFile) : "";
   const post = {
     title: formData.get("title").trim(),
     category: formData.get("category"),
     tag: formData.get("tag").trim() || "기록",
     excerpt: formData.get("excerpt").trim(),
     visual: formData.get("visual"),
+    image,
+    imageAlt: formData.get("title").trim(),
     likes: 0,
   };
 
@@ -165,7 +191,7 @@ clearLocalPostsButton.addEventListener("click", () => {
 
 async function loadPublishedPosts() {
   try {
-    const response = await fetch("data/posts.json");
+    const response = await fetch(`data/posts.json?v=${Date.now()}`, { cache: "no-store" });
     publishedPosts = response.ok ? await response.json() : [];
   } catch {
     publishedPosts = [];

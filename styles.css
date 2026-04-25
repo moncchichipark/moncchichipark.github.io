@@ -419,6 +419,28 @@ h1 {
   position: relative;
 }
 
+.post-visual.has-image {
+  background: #f5f1e8;
+}
+
+.post-visual.has-image::before {
+  content: none;
+}
+
+.post-visual img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.post-visual.has-image span {
+  background: rgba(34, 33, 31, 0.74);
+  bottom: 0.75rem;
+  color: white;
+  left: 0.75rem;
+  position: absolute;
+}
+
 .post-visual::before {
   border: 3px solid rgba(34, 33, 31, 0.22);
   border-radius: 999px;
@@ -549,6 +571,11 @@ h1 {
   outline: 0;
   padding: 0.72rem 0.8rem;
   width: 100%;
+}
+
+.write-panel input[type="file"] {
+  align-items: center;
+  display: flex;
 }
 
 .write-panel textarea {

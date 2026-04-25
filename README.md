@@ -13,11 +13,15 @@
   "tag": "키링 · 소품",
   "excerpt": "가방에 달았더니 하루가 조금 더 폭신해졌다.",
   "visual": "sticker",
+  "image": "images/bear-keyring.jpg",
+  "imageAlt": "가방에 단 곰돌이 키링",
   "likes": 0
 }
 ```
 
 카테고리는 `cute`, `food`, `character`, `daily` 중 하나를 씁니다.
 표지 느낌은 `sticker`, `cake`, `mascot`, `pasta` 중 하나를 씁니다.
+
+직접 찍은 사진을 공개 페이지에 영구 반영하려면 사진 파일을 `images/` 폴더에 넣고, `image` 값에 그 경로를 적습니다. 예를 들어 `images/moncchichi-tulip.jpg`처럼 씁니다.
 
 홈페이지의 글쓰기 폼에서 쓴 글은 현재 브라우저에 임시 저장되어 바로 보입니다. 다른 사람에게도 보이게 하려면 `data/posts.json`에 추가해서 커밋해야 합니다.
