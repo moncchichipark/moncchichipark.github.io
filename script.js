@@ -5,7 +5,7 @@ const heroScene = document.querySelector(".hero-scene");
 
 let activeFilter = "all";
 let publishedPosts = [];
-let dragStartX = 0;
+let dragStartY = 0;
 let activeMoodIndex = 0;
 const moods = ["cute", "food", "character"];
 
@@ -136,13 +136,13 @@ function setMood(index) {
 }
 
 heroScene.addEventListener("pointerdown", (event) => {
-  dragStartX = event.clientX;
+  dragStartY = event.clientY;
   heroScene.classList.add("is-dragging");
   heroScene.setPointerCapture(event.pointerId);
 });
 
 heroScene.addEventListener("pointerup", (event) => {
-  const distance = event.clientX - dragStartX;
+  const distance = event.clientY - dragStartY;
   heroScene.classList.remove("is-dragging");
 
   if (Math.abs(distance) > 35) {

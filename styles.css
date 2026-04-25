@@ -234,7 +234,7 @@ h1 {
   min-height: 560px;
   padding: 1.2rem;
   position: relative;
-  touch-action: pan-y;
+  touch-action: none;
   transition: background 220ms ease, transform 220ms ease;
   user-select: none;
 }
