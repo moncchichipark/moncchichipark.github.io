@@ -14,9 +14,15 @@
       href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nunito:wght@700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260425-4" />
+    <link rel="stylesheet" href="styles.css?v=20260425-5" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="scroll-mascot" aria-hidden="true">
+      <span class="mascot-ear left-ear"></span>
+      <span class="mascot-ear right-ear"></span>
+      <span class="mascot-face">•ᴗ•</span>
+    </div>
     <header class="site-header">
       <div class="promo-bar">오늘의 귀여움 2+1: 디저트 사진, 캐릭터 낙서, 소소한 일상</div>
       <nav class="nav-shell" aria-label="주요 메뉴">
@@ -40,7 +46,7 @@
     </header>
 
     <main id="top">
-      <section class="hero">
+      <section class="hero reveal-on-scroll" data-scroll-tone="cute">
         <div class="hero-copy">
           <p class="eyebrow">personal blog curated like a cute store</p>
           <h1>귀여운 것만 골라 담은 나의 작은 올리브영</h1>
@@ -99,7 +105,7 @@
         </div>
       </section>
 
-      <section class="category-strip" aria-label="카테고리">
+      <section class="category-strip reveal-on-scroll" aria-label="카테고리" data-scroll-tone="fresh">
         <button class="chip active" data-filter="all">전체</button>
         <button class="chip" data-filter="cute">귀여운 것</button>
         <button class="chip" data-filter="food">먹은 것</button>
@@ -107,7 +113,13 @@
         <button class="chip" data-filter="daily">일상</button>
       </section>
 
-      <section class="ranking-section" id="ranking">
+      <div class="cute-divider reveal-on-scroll" aria-hidden="true">
+        <span>♡</span>
+        <span>moco shelf</span>
+        <span>♡</span>
+      </div>
+
+      <section class="ranking-section reveal-on-scroll" id="ranking" data-scroll-tone="ranking">
         <div class="section-heading">
           <p class="eyebrow">real-time shelf ranking</p>
           <h2>오늘의 취향 랭킹</h2>
@@ -115,7 +127,7 @@
         <div class="ranking-grid" id="postGrid" aria-live="polite"></div>
       </section>
 
-      <section class="diary-section" id="diary">
+      <section class="diary-section reveal-on-scroll" id="diary" data-scroll-tone="food">
         <div class="section-heading">
           <p class="eyebrow">fresh arrivals</p>
           <h2>방금 진열한 글</h2>
@@ -143,7 +155,7 @@
         </div>
       </section>
 
-      <section class="characters-section" id="characters">
+      <section class="characters-section reveal-on-scroll" id="characters" data-scroll-tone="character">
         <div class="section-heading">
           <p class="eyebrow">character shelf</p>
           <h2>잡다한 친구들</h2>
@@ -173,6 +185,6 @@
       <span>귀엽고 맛있는 일상을 천천히 진열하는 곳</span>
     </footer>
 
-    <script src="script.js?v=20260425-4"></script>
+    <script src="script.js?v=20260425-5"></script>
   </body>
 </html>

@@ -2,12 +2,23 @@ const chips = document.querySelectorAll(".chip");
 const postGrid = document.querySelector("#postGrid");
 const searchInput = document.querySelector("#searchInput");
 const heroScene = document.querySelector(".hero-scene");
+const revealSections = document.querySelectorAll(".reveal-on-scroll");
+const scrollTones = ["cute", "fresh", "ranking", "food", "character"];
 
 let activeFilter = "all";
 let publishedPosts = [];
 let dragStartY = 0;
 let activeMoodIndex = 0;
 const moods = ["cute", "food", "character"];
+
+function updateScrollState() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  document.documentElement.style.setProperty("--scroll", progress.toFixed(3));
+
+  const toneIndex = Math.min(scrollTones.length - 1, Math.floor(progress * scrollTones.length));
+  document.body.dataset.scrollTone = scrollTones[toneIndex];
+}
 
 function normalize(text) {
   return text.toLowerCase().trim();
@@ -153,6 +164,21 @@ heroScene.addEventListener("pointerup", (event) => {
 heroScene.addEventListener("pointercancel", () => {
   heroScene.classList.remove("is-dragging");
 });
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("is-visible", entry.isIntersecting);
+    });
+  },
+  { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+);
+
+revealSections.forEach((section) => revealObserver.observe(section));
+
+window.addEventListener("scroll", updateScrollState, { passive: true });
+window.addEventListener("resize", updateScrollState);
+updateScrollState();
 
 async function loadPublishedPosts() {
   try {

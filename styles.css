@@ -13,6 +13,7 @@
   --sky: #b9dfff;
   --brown: #8a5738;
   --shadow: 0 18px 50px rgba(68, 55, 35, 0.12);
+  --scroll: 0;
 }
 
 * {
@@ -25,9 +26,28 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(217, 240, 121, calc(0.12 + var(--scroll) * 0.08)),
+      rgba(255, 215, 176, calc(0.1 + var(--scroll) * 0.05)) 46%,
+      var(--paper) 100%
+    );
   color: var(--ink);
   font-family: "Gowun Dodum", system-ui, sans-serif;
+  transition: background 300ms ease;
+}
+
+body[data-scroll-tone="food"] {
+  --fresh: #ffe38a;
+}
+
+body[data-scroll-tone="character"] {
+  --fresh: #b9dfff;
+}
+
+body[data-scroll-tone="ranking"] {
+  --fresh: #ffd7b0;
 }
 
 a {
@@ -40,6 +60,59 @@ input {
   font: inherit;
 }
 
+.scroll-progress {
+  background: linear-gradient(90deg, var(--fresh), var(--pink), var(--sky));
+  height: 4px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transform: scaleX(var(--scroll));
+  transform-origin: left center;
+  width: 100%;
+  z-index: 60;
+}
+
+.scroll-mascot {
+  align-items: center;
+  background: var(--peach);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  bottom: 1.1rem;
+  box-shadow: 5px 5px 0 var(--ink);
+  display: flex;
+  height: 58px;
+  justify-content: center;
+  position: fixed;
+  right: 1.1rem;
+  transform: translateY(calc(var(--scroll) * -18px)) rotate(calc((var(--scroll) - 0.5) * 10deg));
+  width: 58px;
+  z-index: 30;
+}
+
+.mascot-ear {
+  background: var(--brown);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  height: 22px;
+  position: absolute;
+  top: -5px;
+  width: 22px;
+  z-index: -1;
+}
+
+.left-ear {
+  left: 1px;
+}
+
+.right-ear {
+  right: 1px;
+}
+
+.mascot-face {
+  font-size: 1.28rem;
+  font-weight: 900;
+}
+
 .site-header {
   background: rgba(255, 253, 248, 0.94);
   border-bottom: 1px solid var(--line);
@@ -47,6 +120,7 @@ input {
   top: 0;
   z-index: 20;
   backdrop-filter: blur(18px);
+  box-shadow: 0 calc(var(--scroll) * 12px) 32px rgba(68, 55, 35, calc(var(--scroll) * 0.09));
 }
 
 .promo-bar {
@@ -165,9 +239,39 @@ main {
   padding: 4rem 1.25rem 2.6rem;
 }
 
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-on-scroll.is-visible .section-heading h2,
+.reveal-on-scroll.is-visible .post-card,
+.reveal-on-scroll.is-visible .character-card {
+  animation: soft-pop 520ms ease both;
+}
+
+@keyframes soft-pop {
+  0% {
+    transform: translateY(12px) scale(0.97);
+  }
+  70% {
+    transform: translateY(-3px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
 .hero-copy {
   align-self: center;
   max-width: 620px;
+  transform: translateY(calc(var(--scroll) * -12px));
 }
 
 .eyebrow {
@@ -268,6 +372,10 @@ h1 {
   right: 1rem;
   top: 1rem;
   z-index: 3;
+}
+
+.drag-hint::before {
+  content: "•ᴗ• ";
 }
 
 .shelf {
@@ -381,6 +489,30 @@ h1 {
   padding: 0.95rem max(1.25rem, calc((100vw - 1180px) / 2 + 1.25rem));
 }
 
+.cute-divider {
+  align-items: center;
+  color: var(--olive-dark);
+  display: flex;
+  font-family: "Nunito", "Gowun Dodum", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 900;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 2rem auto -1.4rem;
+  max-width: 1180px;
+  padding: 0 1.25rem;
+  text-transform: uppercase;
+}
+
+.cute-divider::before,
+.cute-divider::after {
+  background: var(--line);
+  content: "";
+  height: 1px;
+  max-width: 180px;
+  width: 18vw;
+}
+
 .chip {
   background: white;
   border: 1px solid var(--line);
@@ -426,6 +558,16 @@ h1 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.post-card {
+  transform: translateY(calc(var(--scroll) * -6px));
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 22px 60px rgba(68, 55, 35, 0.18);
+  transform: translateY(-6px);
+}
+
 .post-card,
 .character-card,
 .memo-panel {
@@ -439,6 +581,21 @@ h1 {
   min-width: 0;
   overflow: hidden;
   position: relative;
+}
+
+.post-card::after {
+  background: var(--fresh);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  content: "pick";
+  font-family: "Nunito", sans-serif;
+  font-size: 0.66rem;
+  font-weight: 900;
+  padding: 0.18rem 0.44rem;
+  position: absolute;
+  right: 0.72rem;
+  top: 0.72rem;
+  transform: rotate(5deg);
 }
 
 .post-card.is-hidden {
@@ -614,6 +771,7 @@ h1 {
   gap: 1rem;
   grid-template-columns: minmax(0, 1fr) auto;
   padding: 1.4rem;
+  transform: translateX(calc((var(--scroll) - 0.5) * -10px));
 }
 
 .featured-post h3 {
@@ -641,6 +799,11 @@ h1 {
 
 .character-card {
   padding: 1.1rem;
+  transition: transform 220ms ease;
+}
+
+.character-card:hover {
+  transform: translateY(-5px) rotate(-1deg);
 }
 
 .character-face {
@@ -652,7 +815,15 @@ h1 {
   height: 76px;
   justify-content: center;
   margin-bottom: 0.9rem;
+  position: relative;
   width: 76px;
+}
+
+.character-face::after {
+  content: "♡";
+  font-size: 0.8rem;
+  position: absolute;
+  transform: translate(28px, -24px);
 }
 
 .character-face.brown {
@@ -716,6 +887,15 @@ h1 {
     padding-top: 2.2rem;
   }
 
+  .hero-copy {
+    transform: none;
+  }
+
+  .scroll-mascot {
+    height: 48px;
+    width: 48px;
+  }
+
   .hero-scene {
     box-shadow: 6px 6px 0 var(--ink);
     min-height: 440px;
@@ -752,6 +932,7 @@ h1 {
   .post-card {
     flex: 0 0 min(84vw, 360px);
     scroll-snap-align: start;
+    transform: none;
   }
 
   .post-visual {
